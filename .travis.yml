@@ -1,0 +1,26 @@
+language: swift
+osx_image: xcode10
+
+install:
+  - brew install libtool
+  - brew link libtool
+  - brew install graphviz
+  - brew link --overwrite graphviz
+
+script: ./generateAll.sh
+
+deploy:
+  provider: pages
+  edge:
+    branch: v1.8.47
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
+  keep-history: true
+  on:
+    branch: master
+  target-branch: master
+
+  notifications:
+  email:
+    on_success: never # default: change
+    on_failure: always # default: always
